@@ -6,4 +6,10 @@
     <RootNamespace>CoderGirl_SalesList</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="Data\1000 Sales Records.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
