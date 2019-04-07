@@ -5,8 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoderGirl-SalesList", "CoderGirl-SalesList\CoderGirl-SalesList.csproj", "{D71B97CE-EB55-4BBF-87FE-D8F06B5FF35B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{324B1A9A-6F96-4624-BAB9-AC906C661121}"
-EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{324B1A9A-6F96-4624-BAB9-AC906C661121}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

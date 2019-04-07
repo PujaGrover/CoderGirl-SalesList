@@ -8,13 +8,11 @@ namespace CoderGirl_SalesList
     {
         public ISalesRecordAdapter SalesRecordAdapter { get; private set; }
         public ISalesRecordAnalyzer SalesRecordAnalyzer { get; private set; }
-        public ISalesRecordRepository SalesRecordRepository { get; private set; }
 
         public Factory()
         {
             //TODO: Add specific implementation classes
-            //this.SalesRecordRepository = new ??
-            //this.SalesRecordAnalyzer = new ??
+            this.SalesRecordAnalyzer = new WhateverUwant();
             //this.SalesRecordAdapter = new ??
         }
     }
