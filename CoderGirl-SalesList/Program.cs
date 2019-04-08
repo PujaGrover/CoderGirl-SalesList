@@ -7,7 +7,7 @@ namespace CoderGirl_SalesList
 {
     public class Program
     {
-        private string filePath = @"1000 Sales Records.csv";
+        private string filePath = @"Data/1000 Sales Records.csv";
 
         public static void Main(string[] args)
         {
@@ -18,60 +18,71 @@ namespace CoderGirl_SalesList
 
         private void Run()
         {
+            Factory factory = new Factory();
+            ISalesRecordAdapter salesRecordAdapter = factory.SalesRecordAdapter;
+            List<SalesRecord> salesRecords = salesRecordAdapter.GetSalesRecordsFromCsvFile(filePath);
+
+            ISalesRecordAnalyzer salesRecordAnalyzer = factory.SalesRecordAnalyzer;
+            List<string> countries = salesRecordAnalyzer.GetCountries(salesRecords);
+
+            //Testing for Country List
+            countries.Sort();
+            countries.ForEach(country => Console.WriteLine(country));
+            Console.ReadLine();
+
+            //Testing for Country Count
+            int countryCount = salesRecordAnalyzer.GetCountryCount(salesRecords);
+            Console.WriteLine(countryCount);
+            Console.ReadLine();
+
+            //Testing for MaxProfit
+            decimal maxProfit = salesRecordAnalyzer.GetMaxProfit(salesRecords);
+            Console.WriteLine($"Maximum Profit is: {maxProfit}");
+            Console.ReadLine();
+
+            //Testing for TotalRevenue
+            decimal totalRevenue = salesRecordAnalyzer.GetTotalRevenue(salesRecords);
+            Console.WriteLine($"Total Revenue is: {totalRevenue}");
+            Console.ReadLine();
+
+            //Testing for OrderByShipDate
+            List<SalesRecord> ascendingOrderOfShipDates = salesRecordAnalyzer.OrderByShipDate(salesRecords);
+            ascendingOrderOfShipDates.ForEach(record => Console.WriteLine(record.OrderDate.ToString("M/d/yyyy")));
+            Console.ReadLine();
+
+            //Testing for OrderByUnitsSoldDescending
+            List<SalesRecord> orderByUnitsSoldDescending =  salesRecordAnalyzer.OrderByUnitsSoldDescending(salesRecords);
+            orderByUnitsSoldDescending.ForEach(record => Console.WriteLine(record.UnitsSold));
+            Console.ReadLine();
+
+            //Testing for AreOrderDatesBefore
+
+            DateTime cutoffDate = DateTime.Parse("7/26/2017");
+            Console.WriteLine(salesRecordAnalyzer.AreOrderDatesBefore(cutoffDate , salesRecords));
+            Console.ReadLine();
+
             //List<SalesRecord> salesRecords = GetSalesRecordsFromFileData();
             //int countNorthAmerica = GetCountForNorthAmerica(salesRecords);
             //Console.WriteLine(countNorthAmerica);
         }
 
-        private int GetCountForNorthAmerica(List<SalesRecord> salesRecords)
-        {
-            int count = 0;
-            foreach(SalesRecord record in salesRecords)
-            {
-                if(record.Region == "North America")
-                {
-                    count++;
-                }
-            }
-            int[] something = new int[5];
+        //private int GetCountForNorthAmerica(List<SalesRecord> salesRecords)
+        //{
+        //    int count = 0;
+        //    foreach(SalesRecord record in salesRecords)
+        //    {
+        //        if(record.Region == "North America")
+        //        {
+        //            count++;
+        //        }
+        //    }
+        //    int[] something = new int[5];
 
-            something.TakeLast(4);
+        //    something.TakeLast(4);
 
-            List<string> stringList = new List<string>();
-            stringList.Select(item => int.Parse(item)).ToList();
-            return count;
-        }
-
-        private List<SalesRecord> GetSalesRecordsFromFileData()
-        {
-            List<SalesRecord> salesRecords = new List<SalesRecord>();
-            bool isFirstRow = true;
-            foreach (string line in File.ReadLines(@"1000 Sales Records.csv"))
-            {
-                if (isFirstRow)
-                {
-                    isFirstRow = false;
-                    continue;
-                }
-
-                SalesRecord salesRecord = CreateSalesRecord(line);
-                salesRecords.Add(salesRecord);
-            }
-            return salesRecords;
-        }
-
-        private SalesRecord CreateSalesRecord(string line)
-        {
-            SalesRecord salesRecord = new SalesRecord();
-            string[] properties = line.Split(",");
-            salesRecord.Region = properties[0];
-            salesRecord.Country = properties[1];
-            salesRecord.ItemType = properties[2];
-            salesRecord.SalesChannel = properties[3];
-            salesRecord.OrderPriority = properties[4];
-            salesRecord.OrderDate = DateTime.Parse(properties[5]);
-
-            return salesRecord;
-        }
+        //    List<string> stringList = new List<string>();
+        //    stringList.Select(item => int.Parse(item)).ToList();
+        //    return count;
+        //}
     }
 }
